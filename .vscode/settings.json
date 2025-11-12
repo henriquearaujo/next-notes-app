@@ -1,3 +1,4 @@
+//Silenciar no VS Code lint que ainda não reconhece o @theme do Tailwind v4.
 {
   "css.lint.unknownAtRules": "ignore"
 }
