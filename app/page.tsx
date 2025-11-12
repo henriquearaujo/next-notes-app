@@ -78,7 +78,7 @@ export default function Home() {
             borderRadius: 6,
             outline: 'none',
           }}
-        />
+        />  
         <button
           type="submit"
           style={{
