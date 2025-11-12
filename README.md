@@ -1,7 +1,7 @@
 # 📝 Next Notes App
 
 Aplicação **full stack** construída com **Next.js (App Router)** + **TypeScript**, integrada ao **MongoDB Atlas**.  
-Permite criar, listar e apagar notas simples — com dados **persistentes na nuvem**.
+Permite **criar, listar, editar e apagar notas** com dados **persistentes na nuvem** e interface moderna.
 
 ---
 
@@ -9,9 +9,11 @@ Permite criar, listar e apagar notas simples — com dados **persistentes na nuv
 
 - **Next.js 15+** — Framework React moderno (App Router + Server/Client Components)  
 - **React + TypeScript** — Interface e tipagem estática  
-- **TailwindCSS** — (a ser adicionado) estilização rápida e consistente  
+- **TailwindCSS** — Estilização rápida e responsiva  
 - **MongoDB Atlas** — Banco de dados em nuvem  
 - **Mongoose** — ODM para modelar e conectar com o MongoDB  
+- **React Query (TanStack)** — Cache e sincronização de dados entre API e UI  
+- **Theme Provider** — Alternância entre tema **claro/escuro** com persistência local  
 - **pnpm** — Gerenciador de pacotes leve e eficiente  
 - **ESLint + Prettier** — Padrões de código e formatação  
 - **dotenv (.env)** — Armazenamento seguro de credenciais  
@@ -23,15 +25,23 @@ Permite criar, listar e apagar notas simples — com dados **persistentes na nuv
 ```
 src/
  ├─ app/
- │   ├─ page.tsx              # Página principal (UI)
- │   └─ api/
- │       └─ notes/
- │           └─ route.ts      # API REST (GET, POST, DELETE)
+ │   ├─ layout.tsx             # Layout global (header, toggle de tema)
+ │   ├─ page.tsx               # Página principal (UI + lógica)
+ │   ├─ providers.tsx          # React Query + ThemeProvider
+ │   ├─ theme-provider.tsx     # Alternância de tema claro/escuro
+ │   ├─ api/
+ │   │   └─ notes/
+ │   │       ├─ route.ts       # API REST (GET, POST)
+ │   │       └─ [id]/route.ts  # API REST (DELETE, PATCH)
+ │   └─ globals.css            # Estilos globais (Tailwind + temas)
+ ├─ components/
+ │   ├─ NoteForm.tsx           # Formulário de criação
+ │   ├─ NoteItem.tsx           # Item da lista (editar/apagar)
+ │   └─ ThemeToggle.tsx        # Alternador de tema
  ├─ lib/
- │   ├─ db.ts                 # Conexão com o MongoDB
- │   └─ note.ts               # Modelo/schema Mongoose
- ├─ styles/                   # (Tailwind em breve)
- └─ types/                    # Tipagens globais (opcional)
+ │   ├─ db.ts                  # Conexão com o MongoDB
+ │   └─ note.ts                # Modelo/schema Mongoose
+ └─ types/                     # Tipagens globais (opcional)
 ```
 
 ---
@@ -41,7 +51,7 @@ src/
 ### 1️⃣ Pré-requisitos
 - **Node.js** (>= 18)
 - **pnpm** (instalado globalmente)
-- Conta no **MongoDB Atlas** (ou Mongo local)
+- Conta no **MongoDB Atlas** (ou instância local)
 
 ### 2️⃣ Clonar e instalar dependências
 ```bash
@@ -71,8 +81,10 @@ Acesse [http://localhost:3000](http://localhost:3000)
 | Camada | Arquivo | Descrição |
 |--------|----------|-----------|
 | **Interface (Front)** | `src/app/page.tsx` | Exibe as notas e envia ações via `fetch()` |
-| **API (Back)** | `src/app/api/notes/route.ts` | Recebe requisições REST (GET/POST/DELETE) |
+| **API (Back)** | `src/app/api/notes/route.ts` / `[id]/route.ts` | Recebe requisições REST (GET, POST, DELETE, PATCH) |
 | **Banco de Dados** | `src/lib/db.ts` / `src/lib/note.ts` | Conexão e modelo Mongoose |
+| **Tema (UI)** | `src/app/theme-provider.tsx` | Alterna claro/escuro e salva no localStorage |
+| **Cache de Dados** | `src/app/providers.tsx` | React Query Provider para sincronização |
 | **Ambiente** | `.env` | Guarda a string de conexão segura |
 
 ---
@@ -104,24 +116,34 @@ Cada documento tem o formato:
 
 ---
 
+## 🎨 Interface e Tema
+
+- O tema é controlado por um **ThemeProvider**, com suporte a modo **claro/escuro**.  
+- A escolha é armazenada no **localStorage**, mantendo a preferência do usuário.  
+- O layout e os componentes são estilizados com **Tailwind CSS**, aproveitando variáveis e cores de tema dinâmicas.  
+
+---
+
 ## 👨‍💻 Autor
 
 **Henrique Araújo**  
-Front-End Developer & UI/UX Designer  
-🔗 [linkedin.com/in/henriquearaujo](https://linkedin.com/in/henriquearaujo)  
+Front-End Developer · UI/UX Designer · Product Designer  
+📍 Natal/RN — Brasil  
+🔗 [linkedin.com/in/henriquearaujo](https://linkedin.com/in/henriquearaujo)
 
 ---
 
 ## 🧭 Futuras melhorias
 
-- [ ] Adicionar Tailwind e design responsivo  
-- [ ] Implementar edição de notas (PATCH)  
+- [ ] Melhorar design responsivo com Tailwind e animações  
+- [ ] Implementar busca e filtros de notas  
 - [ ] Adicionar autenticação com Auth.js  
-- [ ] Usar React Query (cache inteligente)  
-- [ ] Criar testes automatizados (Vitest/RTL)  
+- [ ] Criar testes automatizados (Vitest + RTL)  
+- [ ] Deploy na **Vercel**  
 
 ---
 
 > _Se um dia eu perder a memória e abrir este projeto:_  
-> Ele roda com `pnpm dev`, conecta ao Mongo Atlas via `.env`, e guarda notas reais com Next.js + Mongoose.  
-> Basta lembrar: **“Next Notes App — CRUD simples e moderno.”** 🚀
+> Ele roda com `pnpm dev`, conecta ao Mongo Atlas via `.env`,  
+> e guarda notas reais com Next.js, Mongoose, React Query e Tailwind CSS.  
+> Basta lembrar: **“Next Notes App — CRUD simples, moderno e bonito.”** 🚀
