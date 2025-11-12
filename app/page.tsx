@@ -22,6 +22,8 @@ export default function Home() {
     <main className="mx-auto max-w-2xl p-6">
       <h1 className="mb-3 text-2xl font-bold">Notas</h1>
 
+      <p className="my-10 text-gray-500">Aplicação para gerenciamento de Notas simples com Next.js + MongoDB + Tailwind + Theme Toggle, para fins didáticos</p>
+
       {/* Formulário de criação */}
       <NoteForm />
 

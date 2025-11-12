@@ -88,3 +88,8 @@ html[data-theme="dark"] {
   --brand-light: #f4f4f5;
   --brand-accent: #60a5fa;
 }
+
+/* Esconde icones flutantes Next e etc, no site em dev */
+.tsqd-parent-container , .tsqd-transitions-container{
+  display: none !important;
+}
