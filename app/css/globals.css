@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+/* ===============================
+   🎨 Tema base do projeto
+   =============================== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --brand: #18181b; /* preto acinzentado moderno */
+  --brand-light: #27272a;
+  --brand-accent: #3b82f6; /* azul */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-accent: var(--brand-accent);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
 }
 
+/* 🌙 Tema escuro automático (sistema) */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --brand: #fafafa;
+    --brand-light: #f4f4f5;
+    --brand-accent: #60a5fa;
   }
 }
 
+/* ===============================
+   🧱 Estilos globais
+   =============================== */
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+button {
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* 💅 Scrollbar (opcional) */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background-color: var(--brand-light); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background-color: var(--brand-accent); }
+
+/* =========================================
+   🌓 Overrides para tema manual (toggle)
+   Coloque data-theme="light" ou "dark" no <html>
+   ========================================= */
+html[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #171717;
+  --brand: #18181b;
+  --brand-light: #27272a;
+  --brand-accent: #3b82f6;
+}
+
+html[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --brand: #fafafa;
+  --brand-light: #f4f4f5;
+  --brand-accent: #60a5fa;
 }
