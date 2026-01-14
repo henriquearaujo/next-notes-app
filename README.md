@@ -60,7 +60,7 @@ cd next-notes-app
 pnpm install
 ```
 
-### 3️⃣ Configurar variáveis de ambiente
+### 3️⃣ Caso não haja, configurar variáveis de ambiente
 Crie um arquivo `.env` na raiz com sua string de conexão:
 
 ```
